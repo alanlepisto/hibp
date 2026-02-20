@@ -1,0 +1,4 @@
+Reports/
+*.log
+*.csv
+pwnedpasswords_ntlm*.txt
