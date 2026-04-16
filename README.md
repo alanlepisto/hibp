@@ -30,7 +30,7 @@ RSAT “AD DS Tools” (ActiveDirectory module)
 DSInternals PowerShell module installed
 https://github.com/MichaelGrafnetter/DSInternals
 
-.NET installed (for the HIBP downloader tool)
+.NET SDK installed (for the HIBP downloader tool)
 https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
 **Folder convention:**
