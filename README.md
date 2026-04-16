@@ -23,8 +23,8 @@ Domain joined server with adequate disk (HIBP corpus is large).
 
 Run as Domain Admin either with the local user or via:
 ```powershell
-powershell$cred = Get-Credential domain\adminaccount
-Start-Process powershell -Credential $cred -ArgumentList "-File C:\HIBP\hibp_ad_audit.ps1"
+$cred = Get-Credential "domain\adminaccount"
+Start-Process powershell -Credential $cred -ArgumentList "-ExecutionPolicy RemoteSigned -File C:\HIBP\hibp_ad_audit.ps1" -WorkingDirectory "C:\HIBP"
 ```
 
 **Components:**
@@ -123,18 +123,18 @@ If an error about PowerShell execution policy appears, such as "ModuleCompatibil
 
 **Option 1:** Set execution policy for the current user (least invasive)
 ```powershell
-powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 ```
 
 Then re-run your Import-Module DSInternals -Force line.
 
 **Option 2:** Set it for the local machine (if running as admin)
 ```powershell
-powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 ```
 
+If executing one of the above options, ensure that when the script is run that it's unblocked:
 ```powershell
-If executing one of the above options, ensure that when the script is ran that it's unblocked:
 Unblock-File C:\HIBP\hibp_ad_audit.ps1
 ```
 
