@@ -135,6 +135,14 @@ powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine 
 powershell.exe -ExecutionPolicy Bypass -File C:\HIBP\hibp_ad_audit.ps1
 ```
 
+The account running the script needs AD replication privileges. Get-ADReplAccount uses the DRS replication protocol to pull NTLM hashes, which requires one of Domain Admins or Enterprise Admins. 
+
+If the current account is not a Domain Admin, run the script as one:
+```powershell
+powershell$cred = Get-Credential domain\adminaccount
+Start-Process powershell -Credential $cred -ArgumentList "-File C:\HIBP\hibp_ad_audit.ps1"
+```
+
 **Outputs to C:\HIBP\Reports\**
 
 hibp_ad_audit_<timestamp>.log (transcript)
