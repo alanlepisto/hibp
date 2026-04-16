@@ -108,7 +108,7 @@ https://github.com/MichaelGrafnetter/DSInternals/releases
 
 **Update version if needed.**
 ```powershell
-$zip  = "C:\HIBP\DSInternals.zip"
+$zip  = "C:\HIBP\DSInternals_v6.4.zip"
 $dest = Join-Path $env:ProgramFiles "WindowsPowerShell\Modules\DSInternals\6.4"
 Unblock-File $zip
 New-Item -ItemType Directory -Force $dest | Out-Null
