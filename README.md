@@ -82,6 +82,18 @@ Install-Module DSInternals -Force
 Import-Module DSInternals
 ```
 
+Install-WindowsFeature is a Server Manager cmdlet and only exists on Windows Server. For Windows 10/11 workstations will require the client equivalent:
+
+**Option 1:** PowerShell (Windows 10/11)
+```powershell
+powershellAdd-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
+```
+
+**Option 2:** If that fails, use DISM
+```powershell
+powershellDISM /Online /Add-Capability /CapabilityName:Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
+```
+
 If Install-Module DSInternals fails, install from the official release ZIP:
 
 https://github.com/MichaelGrafnetter/DSInternals/releases?
@@ -101,14 +113,14 @@ Get-Module DSInternals | Format-List Name,Version,Path
 
 If an error about PowerShell execution policy appears, such as "ModuleCompatibility.ps1 cannot be loaded because running scripts is disabled on this system." Run on of the following:
 
-Option 1: Set execution policy for the current user (least invasive)
+**Option 1:** Set execution policy for the current user (least invasive)
 ```powershell
 powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 ```
 
 Then re-run your Import-Module DSInternals -Force line.
 
-Option 2: Set it for the local machine (if running as admin)
+**Option 2:** Set it for the local machine (if running as admin)
 ```powershell
 powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 ```
