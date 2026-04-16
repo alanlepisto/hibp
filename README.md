@@ -88,10 +88,14 @@ Install-WindowsFeature is a Server Manager cmdlet and only exists on Windows Ser
 ```powershell
 powershellAdd-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
 ```
-
 **Option 2:** If that fails, use DISM
 ```powershell
 powershellDISM /Online /Add-Capability /CapabilityName:Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
+```
+After it installs, verify the AD module loaded:
+```powershell
+powershellImport-Module ActiveDirectory
+Get-Module ActiveDirectory | Format-List Name, Version, Path
 ```
 
 If Install-Module DSInternals fails, install from the official release ZIP:
