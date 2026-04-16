@@ -86,7 +86,7 @@ Install-Module DSInternals -Force
 Import-Module DSInternals
 ```
 
-Install-WindowsFeature is a Server Manager cmdlet and only exists on Windows Server. For Windows 10/11 workstations will require the client equivalent:
+Install-WindowsFeature is a Server Manager cmdlet and only exists on Windows Server. For Windows 10/11 workstations use the client equivalent:
 
 **Option 1:** PowerShell (Windows 10/11)
 ```powershell
@@ -104,7 +104,7 @@ Get-Module ActiveDirectory | Format-List Name, Version, Path
 
 If Install-Module DSInternals fails, install from the official release ZIP:
 
-https://github.com/MichaelGrafnetter/DSInternals/releases?
+https://github.com/MichaelGrafnetter/DSInternals/releases
 
 ```powershell
 $zip  = "C:\HIBP\DSInternals.zip"
@@ -119,7 +119,7 @@ Import-Module DSInternals -Force
 Get-Module DSInternals | Format-List Name,Version,Path
 ```
 
-If an error about PowerShell execution policy appears, such as "ModuleCompatibility.ps1 cannot be loaded because running scripts is disabled on this system." Run on of the following:
+If an error about PowerShell execution policy appears, such as "ModuleCompatibility.ps1 cannot be loaded because running scripts is disabled on this system." Run one of the following:
 
 **Option 1:** Set execution policy for the current user (least invasive)
 ```powershell
