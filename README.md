@@ -106,10 +106,10 @@ If Install-Module DSInternals fails, install from the official release ZIP:
 
 https://github.com/MichaelGrafnetter/DSInternals/releases
 
+**Update version if needed.**
 ```powershell
 $zip  = "C:\HIBP\DSInternals.zip"
-$dest = Join-Path $env:ProgramFiles "WindowsPowerShell\Modules\DSInternals\6.4"  **# update version if needed
-**
+$dest = Join-Path $env:ProgramFiles "WindowsPowerShell\Modules\DSInternals\6.4"
 Unblock-File $zip
 New-Item -ItemType Directory -Force $dest | Out-Null
 Expand-Archive $zip -DestinationPath $dest -Force
