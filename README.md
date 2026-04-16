@@ -21,7 +21,11 @@ A match means the password hash appears in the HIBP corpus (HIBP_NTLM_MATCH).
 
 Domain joined server with adequate disk (HIBP corpus is large).
 
-Run as Domain Admin.
+Run as Domain Admin either with the local user or via:
+```powershell
+powershell$cred = Get-Credential domain\adminaccount
+Start-Process powershell -Credential $cred -ArgumentList "-File C:\HIBP\hibp_ad_audit.ps1"
+```
 
 **Components:**
 
@@ -86,15 +90,15 @@ Install-WindowsFeature is a Server Manager cmdlet and only exists on Windows Ser
 
 **Option 1:** PowerShell (Windows 10/11)
 ```powershell
-powershellAdd-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
+Add-WindowsCapability -Online -Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
 ```
 **Option 2:** If that fails, use DISM
 ```powershell
-powershellDISM /Online /Add-Capability /CapabilityName:Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
+DISM /Online /Add-Capability /CapabilityName:Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0
 ```
 After it installs, verify the AD module loaded:
 ```powershell
-powershellImport-Module ActiveDirectory
+Import-Module ActiveDirectory
 Get-Module ActiveDirectory | Format-List Name, Version, Path
 ```
 
@@ -129,19 +133,17 @@ Then re-run your Import-Module DSInternals -Force line.
 powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 ```
 
+```powershell
+If executing one of the above options, ensure that when the script is ran that it's unblocked:
+Unblock-File C:\HIBP\hibp_ad_audit.ps1
+```
+
 **Step 4 — Run the audit script**
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File C:\HIBP\hibp_ad_audit.ps1
 ```
 
-The account running the script needs AD replication privileges. Get-ADReplAccount uses the DRS replication protocol to pull NTLM hashes, which requires one of Domain Admins or Enterprise Admins. 
-
-If the current account is not a Domain Admin, run the script as one:
-```powershell
-powershell$cred = Get-Credential domain\adminaccount
-Start-Process powershell -Credential $cred -ArgumentList "-File C:\HIBP\hibp_ad_audit.ps1"
-```
 
 **Outputs to C:\HIBP\Reports\**
 
