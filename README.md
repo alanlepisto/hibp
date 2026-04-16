@@ -99,7 +99,19 @@ Import-Module DSInternals -Force
 Get-Module DSInternals | Format-List Name,Version,Path
 ```
 
+If an error about PowerShell execution policy appears, such as "ModuleCompatibility.ps1 cannot be loaded because running scripts is disabled on this system." Run on of the following:
 
+Option 1: Set execution policy for the current user (least invasive)
+```powershell
+powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+```
+
+Then re-run your Import-Module DSInternals -Force line.
+
+Option 2: Set it for the local machine (if running as admin)
+```powershell
+powershellSet-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
+```
 
 **Step 4 — Run the audit script**
 
